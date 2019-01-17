@@ -65,7 +65,7 @@ function doWxss(dir,cb){
 	}
 	function runVM(name,code){
 		let wxAppCode={},handle={cssFile:name};
-		let vm=new VM({sandbox:Object.assign(new GwxCfg(),{__wxAppCode__:wxAppCode,setCssToHead:cssRebuild.bind(handle)})});
+		let vm=new VM({sandbox:Object.assign(new GwxCfg(),{$gwx() {return {}},__wxAppCode__:wxAppCode,setCssToHead:cssRebuild.bind(handle)})});
 		vm.run(code);
 		for(let name in wxAppCode)if(name.endsWith(".wxss")){
 			handle.cssFile=path.resolve(frameName,"..",name);
